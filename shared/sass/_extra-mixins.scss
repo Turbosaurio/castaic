@@ -1,0 +1,611 @@
+$pics: '/pics/';
+$bg: $pics + 'bg/';
+
+
+@mixin triangle(
+	//Border based isoceles triangles
+	$direction: bottom,
+	$background: blue, 
+	$stroke-width: 25px, 
+	//height of parent
+	$height: 0,
+	//usually $width uses % to center
+	$width: 0, 
+	$hover: null, 
+	$hover-color: red
+	){
+	position: relative;
+	&:after{
+		content: "";
+		position: absolute;
+		transform: traslateX(-75%);
+		top: $height;
+		left: $width;
+		width: 0; 
+	  height: 0;
+	  z-index: -10;
+		@if $direction == top {
+			border: {
+				left: $stroke-width solid transparent;
+				right: $stroke-width solid transparent;
+				bottom: $stroke-width solid $background;
+			}
+		}@if $direction == bottom {
+			border: {
+				left: $stroke-width solid transparent;
+				right: $stroke-width solid transparent;
+				top: $stroke-width solid $background;
+			}
+		}@if $direction == right {
+			border: {
+				top: $stroke-width solid transparent;
+		  	bottom: $stroke-width solid transparent;
+		  	left: $stroke-width solid $background;
+			}
+		}@if  $direction == left {
+			border: {
+				top: $stroke-width solid transparent;
+		  	bottom: $stroke-width solid transparent; 
+		  	right: $stroke-width solid $background;
+			}
+		}
+		//in case to change the color of the triangle
+		@if $hover != null {
+			&:hover, &:focus{
+				border-#{$direction}-color: $background;	
+			}
+		}
+	}
+}
+
+//if second is not defined, it's squared shaped 
+//with bg-image cover, if position is absolute: set position between brackets
+@mixin logo-before($size-y, $file ,$size-x: null, $position: null){
+	@if $position != null {
+		position: relative;
+		&:before{
+			position: absolute;
+			@content;
+		}
+	}
+	&:before{
+		content: "";
+		display: block;
+		margin-right: 20px;
+		$url: $pics + $file;
+		background: {
+			image: url($url);
+			size: contain;
+			position: center center;
+			repeat: no-repeat;
+		}
+		height: $size-y;
+		@if $size-x == null {
+			width: $size-y;
+		}@else {
+			width: $size-x
+		}
+	}
+}
+
+//mask that gradients the sides of dom, center is transparent
+@mixin white-gradient($start: red, $mid: transparent, $end: red){
+	position: relative;
+	&:after{
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 110;
+		background-image: none;
+		background-image: -webkit-linear-gradient(right, $start, $mid, $end);
+		background-image: -o-linear-gradient(right, $start, $mid, $end);
+		background-image: -moz-linear-gradient(right, $start, $mid, $end);
+		background-image: linear-gradient(to right, $start, $mid, $end); 
+	}
+}
+
+
+
+//containers that adjust to display size, usually class .content-container has this
+@mixin responsive-container($min: 90%, $only-max: null){
+	@include width-constrain($min);
+	@if $only-max == null {
+		@include respond-to-min-max($vp-mid, $vp-large){
+			@include width-constrain($vp-mid);
+		}
+		@include respond-to-min-max($vp-large, $vp-max){
+			@include width-constrain($vp-large);
+		}
+	} @else {
+		@include respond-to($vp-max){
+			@include width-constrain($vp-max);
+		}
+	}
+}
+
+//as before but only from large to min, max takes large size
+@mixin responsive-from-large($min: 90%){
+	@include width-constrain($min);
+	@include respond-to-min-max($vp-mid, $vp-large){
+		@include width-constrain($vp-mid);
+	}
+	@include respond-to($vp-large){
+		@include width-constrain($vp-large);
+	}
+}
+
+
+
+//column content based on flex, 
+//@content adds to class $column-class
+//usually applied to .column-container
+@mixin columns(
+	$number: 2, 
+	$column-class: "column"
+	){
+	@include width-constrain(100%);
+	// @include respond-to-min-max($vp-mid,$vp-large){
+	// 	@include width-constrain($vp-mid);
+	// 	@include flex-all(row,space-around,flex-start);
+	// }
+	// @include respond-to-min-max($vp-large,$vp-max){
+	// 	@include width-constrain($vp-large);
+	// 	@include flex-all(row,space-around,flex-start);
+	// }	
+	@include respond-to($vp-max){
+		@include width-constrain($vp-max);
+		@include flex-all(row,space-around,flex-start);
+	}
+	>.#{$column-class}{
+		@content;
+	}
+}
+
+
+
+///TEXT MIXINS
+
+//links within text blocks
+@mixin body-link($color, $hover){
+	a{
+		text-decoration: none;
+		color: $color;
+		&:hover,
+		&:focus{
+			@if $hover == underline {
+				text-decoration: underline;
+			} @else {
+				color: inherit;
+			}
+		}
+	}
+}
+//body titles that may need resize on responsivness
+@mixin body-title(
+	$color: $betty-blue, 
+	$font-size: 3rem, 
+	$hover: null,
+	$weight: 700){
+
+	@if $hover != null{
+		@include body-link($color, $hover);
+	}
+
+	$large-font	: .25rem;
+	$mid-font		: .35rem;
+	$small-font	: .45rem;
+	@if $font-size >= 3rem {
+		$large-font	: .5rem;
+		$mid-font		: .75rem;
+		$small-font	: 1.5rem;
+	}
+	font: {
+		family: $secondary-font;
+		size: $font-size - $small-font;
+		weight: $weight;
+	}
+	line-height: 110%;
+	color: $color !important;
+	@include respond-to-min-max($vp-mid,$vp-large){
+		font-size: $font-size - $mid-font;
+	}
+	@include respond-to-min-max($vp-large,$vp-max){
+		font-size: $font-size - $large-font;
+	}
+	@include respond-to($vp-max){
+		font-size: $font-size;
+	}
+}
+
+@mixin body-text($font-size: 1.25rem, $line-height: $font-size * 1.5){
+	font: {
+		family: $primary-font;
+		size: $font-size;
+	}
+	line-height: $line-height;
+}
+
+
+
+////// Transformation
+
+@mixin flipX{
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+
+//// Figures and decorations
+
+
+@mixin solid-shadow($color: black){
+	box-shadow: 0 0 15px 5px rgba($color, 0.2);
+}
+
+//decorative shadow with a glow look-alike
+//as Jason said, not the best practice but it works
+@mixin glow-svg($color: blue){
+	-webkit-filter: drop-shadow( 0 0 15px rgba($color,.8) );
+	filter: drop-shadow( 0 0 15px rgba($color,.8) );
+}
+
+//create after element that looks like a border-bottom faded to center
+@mixin gradient-line-bottom($color: black){
+	position: relative;
+	&:after{
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 1px;
+		bottom: 0;
+		left: 0;
+		background: -webkit-linear-gradient(left, transparent 0 , rgba($color, 0.3) 50%, transparent 100%); 
+	  background: -moz-linear-gradient(right, transparent 0, rgba($color, 0.3) 50%, transparent 100%); 
+	  background: linear-gradient(to right, transparent 0 , rgba($color, 0.3) 50%, transparent 100%); 
+	}
+	
+}
+
+//rhombus figure centered behind with hover amazing effect
+@mixin rhombus($color: yellow, $width: 50px, $hover: red){
+	position: relative;
+	&:before,
+	&:after {
+		content: "";
+	  display: block;
+	  position: absolute;
+	  width: 0; 
+	  height: 0;
+	  left: 0;
+	  z-index: -5;
+	}
+	&:before {
+	  border: $width solid transparent; 
+	  border-bottom-color: $color;
+	  top: - $width;
+	} 
+	&:after {
+		top: $width;
+		border: $width solid transparent;
+		border-top-color: $color;
+	}
+	&:hover:before,
+	&:focus:before{
+		border-bottom-color: $hover;
+	}
+	&:hover:after,
+	&:focus:after{
+		border-top-color: $hover;
+	}
+}
+
+
+//////Buttons
+
+
+/// <a> links as box with pretty shadow
+@mixin link-box($bg-color: red, $hover-color: blue, $hover: null){
+	@include solid-shadow(rgba(black, .3));
+	display: inline-block;
+	padding: 15px 40px;
+	border-radius: 50px;
+	color: $jack-white !important;
+	background-color: $bg-color;
+	font: {
+		family: $primary-font;
+		size: 1rem;
+		weight: 900;
+	}
+	text: {
+		align: center;
+		transform: uppercase;
+		decoration: none;
+	}
+	&:hover,
+	&:focus{
+		@if $hover != null {
+			background-color: $hover-color;
+		} @else {
+			color: $hover-color;
+		}
+	}
+}
+
+
+
+
+//bg-image cover for dom, just specify file name
+//if total is set, iterate through #child-n id's
+@mixin bg-cover($file: null, $total: null, $type: '.jpg'){
+	@if $total !=null {
+		@for $i from 1 through $total {
+			.#{'child-' + $i}{
+				$url: $pics + $file + $i + $type;
+				background:{
+					image: url($url);
+					position: center center;
+					size: cover;
+				}
+			}
+		}
+	}
+	@if $file != null {
+		$url: $pics + $file + $type;
+		background:{
+			image: url($url);
+			position: center center;
+			size: cover;
+		}
+	}
+	@if $file == null {
+		background: {
+			position: center center;
+			size: cover;
+		}
+	}
+}
+
+
+//2x2 squared links with bg-image and color overlay with magnificient hover
+@mixin square-links(
+	$item-class: 'link-item',
+	$size: 230px, 
+	$margin: 15px, 
+	$bg-color: red, 
+	$bg-hover-color: blue, 
+	$b-radius: 15px, 
+	$total: null,
+	$file: null
+	){
+	@include flex-all(column,center,center);
+	margin: 0;
+	.#{$item-class}{
+		@if $file != null {
+			@include bg-cover($file, $total);
+		}
+		position: relative;
+		width: $size;
+		height: $size;
+		@if $b-radius > 0 {	border-radius: $b-radius }
+		box-sizing: border-box;
+		margin: 8px;
+		a{
+			@include flex-all(row,center,center);
+			position: relative;
+			box-sizing: border-box;
+			width: $size;
+			height: $size;
+			padding: 15px;
+			font: {
+				size: 1.3rem;
+				weight: 600;
+			}
+			text:{
+				decoration: none;
+				align: center;
+			}
+			color: $jack-white;
+			background-color: $bg-color;
+			@if $b-radius > 0 {	border-radius: $b-radius }
+			&:hover, &:focus{
+				background-color: $bg-hover-color;
+				color: $almost-black;
+			}
+		}
+	}
+	@include respond-to(530px){
+		@include flex-direction(row);
+		//margin: 0 0 0 40px;
+		.#{$item-class}{
+			margin: $margin / 2;
+		}
+	}
+}
+
+//terrifying mask over dom that darkens if defualts are used
+@mixin after-mask($color: rgba($jack-black, .65)){
+	position: relative;
+	&:after{
+		content: "";
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		background-color: $color;
+	}
+}
+
+//create row of squared elements to the delight of the sight 
+@mixin responsive-squares(
+	$initial-height: 200px,
+	$margins: -3px -2px,
+	$number: 3
+	){
+	width: 50%;
+	height: $initial-height;
+	background:{
+		size: cover;
+		position: center center;
+	}
+	margin: -3px -2px;
+	@include respond-to-min-max($vp-mid, $vp-large){
+		width: $vp-mid / $number;
+		height: $vp-mid / $number;
+	}
+	@include respond-to-min-max($vp-large, $vp-max){
+		width: $vp-large / $number;
+		height: $vp-large / $number;
+	}
+	@include respond-to($vp-max){
+		width: $vp-max / $number;
+		height: $vp-max / $number;
+	}
+} 
+
+////for the times that resizing fonts may be necessary
+@mixin resize-fonts(
+	$size-a: 4rem,
+	$size-b: 4rem,
+	$size-c: 4rem,
+	$font-a: null,
+	$font-b: null,
+	$font-c: null
+	){
+	@if($font-a != null){
+		##{$font-a} {font-size: $size-a * .5}
+		@if ($font-b != null){
+			##{$font-b} {font-size: $size-b * .5}
+		}
+		@if ($font-c != null){
+			##{$font-c} {font-size: $size-c * .5}
+		}
+		@include respond-to-min-max($vp-mid, $vp-large){
+			##{$font-a} {font-size: $size-a * .6}
+			@if ($font-b != null){
+				##{$font-b} {font-size: $size-b * .6}
+			}
+			@if ($font-c != null){
+				##{$font-c} {font-size: $size-c * .6}
+			}
+		}
+		@include respond-to-min-max($vp-large, $vp-max){
+			##{$font-a} {font-size: $size-a * .6}
+			@if ($font-b != null){
+				##{$font-b} {font-size: $size-b * .6}
+			}
+			@if ($font-c != null){
+				##{$font-c} {font-size: $size-c * .6}
+			}
+		}
+		@include respond-to($vp-max){
+			##{$font-a} {font-size: $size-a}
+			@if ($font-b != null){
+				##{$font-b} {font-size: $size-b}
+			}
+			@if ($font-c != null){
+				##{$font-c} {font-size: $size-c}
+			}
+		}
+	}
+}
+
+///create keyframe with name for font, bg, or fill color, mid stage color is optional
+@mixin fade-in-key(
+	$name: 'newKey',
+	$start: rgba($jack-black, .2),
+	$mid: null,
+	$final: rgba($jack-black, 1)
+	){
+	@keyframes #{$name}-fill{
+		0% { fill: $start }
+		@if $mid != null { 50% { fill: $mid } }
+		100% { fill: $final }
+	}
+	@keyframes #{$name}-color{
+		0% { color: $start }
+		@if $mid != null { 50% { color: $mid } }
+		100% { color: $final }
+	}
+	@keyframes #{$name}-bg{
+		0% { background-color: $start }
+		@if $mid != null { 50% { background-color: $mid } }
+		100% { background-color: $final }
+	}
+}
+
+//fade in animation, works with fade-in-key
+@mixin fade-in(
+	$name: 'newKey',
+	$where: color
+	){
+	&.hover, &:focus{
+		animation:{
+			name: fade-in-#{$where};
+			duration: 1s;
+		}
+	}
+}
+
+//Transition based animation with awesome ease in-out
+//optional extra settings between brackets
+@mixin fade-transition(
+	$from-color: blue,
+	$to-color: red, 
+	$type: color,
+	$speed: .25s
+	){
+	#{$type}: $from-color;
+	transition: $type $speed ease-in-out;
+	-moz-transition: $type $speed ease-in-out;
+  -webkit-transition: $type $speed ease-in-out;
+	&:hover, &:focus{
+		@content;
+		#{$type}: $to-color;
+	}
+}
+
+
+///HOVERS
+
+
+@mixin hover{
+	&:hover, &:focus{
+		@content;
+	}
+}
+
+@mixin hover-underline{
+	@include hover{
+		text-decoration: underline;
+	}
+}
+@mixin hover-bg($color, $text){
+	@include hover{
+		background-color: $color;
+		color: $text;
+	}
+}
+
+////PARALLAX
+///place parallax handsome div between indextop (head shuffle) and main content
+@mixin parallax{
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100%;
+	background-size: cover;
+	background-position: center center;
+	z-index: -10;
+}
+
+

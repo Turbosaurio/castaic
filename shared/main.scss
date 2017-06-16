@@ -1,0 +1,222 @@
+// Edlio SASS main.scss
+// This version breaks files into base, mixins, and settings
+// main.scss contains all the SASS specific to the individual school. Unique mixins are fine.
+// Feel free to move around the various blocks so that they make more sense to the page structure of the site in question.
+
+
+// Imports - Order is important
+// ------------------------------------------------------------
+
+@import "sass/settings";
+@import "sass/flexbox";
+@import "sass/mixins";
+@import "sass/base";
+@import "sass/extra-mixins/";
+
+
+body{
+	background-color: rgb(60,60,60);
+	padding: 0;
+	margin: 0;
+}
+.slick-flexed{
+	width: 100%;
+	max-width: 100%;
+}
+.column-container{
+	@include columns;
+}
+.max-container{
+	@include responsive-container;
+}
+.content-container{
+	@include responsive-from-large;
+}
+
+
+
+
+#skip_to_content {	@include skip-to-content; }
+
+
+
+// Topnavs
+// ------------------------------------------------------------
+#header_main{
+	position: absolute;
+	height: 215px;
+	width: 100%;
+	font-family: $secondary-font;
+	z-index: 99;
+}
+#franja{
+	position: absolute;
+	width: 100%;
+  height: 66px;
+  transform: translateY(-100%);
+	top: 50%;
+	left: 0;
+	background-color: darken($betty-blue, 10%);
+  border-top: 2px solid $betty-blue;
+  border-bottom: 2px solid $betty-blue;
+}
+#topnav_holder {
+	// @mixin accessible-menu-single-column(
+	// 	$hamburger-color: $jack-white,
+	// 	$spacing: "space-around",
+	// 	$convert-at-width: $vp-large,
+	// 	$width: $site-width,
+	// 	$mobile-id: "topnav_mobile_toggle",
+	// 	$nav-id: "topnav",
+	// 	$nav-class: "nav-menu",
+	// 	$top-level-class: "nav-item",
+	// 	$sub-nav-group-class: "sub-nav-group",
+	// 	$sub-nav-class: "sub-nav",
+	// 	$flyout-class: "flyout-group",
+	// 	$indent-last: true) {
+
+	@include accessible-menu-single-column(
+		$hamburger-color: $betty-blue,
+		$spacing: space-between,
+		$convert-at-width: $vp-max,
+		$width: $vp-max
+	);
+	width: 100%;
+}
+
+#topnav_mobile_toggle {
+	top: 40px;
+	left: 20px;
+}
+
+#topnav {
+	background: $macy-grey;
+	.nav-item > a {
+		height: 50px;
+		padding: 0 10px;
+		font: {
+				size: 1.125em;
+				weight: 700;
+			}
+		color: $betty-blue;
+
+		&:focus,
+		&:hover,
+		&.open { color: $red-fox; }
+	}
+	
+	.sub-nav {
+		
+		a {
+			color: $betty-blue;
+			
+			&:focus,
+			&:hover,
+			&.open { color: $red-fox; }
+		}
+	}
+	
+	@include respond-to($vp-large) {
+		background: transparent;
+		.nav-item:not(:last-child){
+			border-right: 1px solid rgba($jack-black,.9);
+			a{
+				border-right: 1px solid rgba($jack-white,.5);
+			}
+		}
+		.nav-item {
+			> a {
+				@include hover-bg(red,white);
+				height: 66px;
+				padding: 0 35px;
+				font: {
+					size: 1rem;
+					weight: 400;
+				}
+				color: $jack-white;
+
+			}
+		}
+		
+		.sub-nav { 
+			background: $macy-grey;
+		}
+	}
+}
+
+
+
+#header_container{
+	@include flex-all(row,center,center);
+	position: relative;
+	top: -75px;
+}
+#header_title{
+	@include image-replace(175px,216px,'../head_logo.png');
+	@include flex(none);
+	position: relative;
+  top: 40px;
+	background-size: contain;
+}
+#social_nav{
+	position: absolute;
+	top: 45px;
+	right: 0;
+}
+
+
+#shuffle{
+	// position: absolute;
+	// top: 0;
+	// left: 0;
+	width: 100%;
+	img{
+		width: 100%;
+	}
+}
+@mixin inside-box($line: red, $dist: 10px, $place: 'before'){
+	position: relative;
+	&:#{$place}{
+		content: "";
+		display: block;
+		position: absolute;
+		height: calc(100% - ($dist * 2));
+		width: calc(100% - ($dist * 2));
+		height: $dist;
+		width: $dist;
+		border: 1px solid $line;
+	}
+}
+@mixin link-box($height: 100px, $width: 100px){
+	@include flex-all(column,center,center);
+	box-sizing: border-box;
+	height: $height;
+	width: $width;
+	text-align: center;
+}
+#quicklinks_container{
+	$this-height: 108px;
+
+	$item-width: 18%;
+
+
+	@include flex-all(row,space-between,center);
+	position: relative;
+	margin-top: - $this-height - 15px;
+	height: $this-height;
+	.ql-item{
+		@include link-box($this-height, $item-width);
+		@include inside-box($jack-white, 8px);
+		span { width: 70% }
+		color: white;
+		background:{
+			color: $betty-blue;
+		}
+
+	}
+}
+
+
+
+
+
