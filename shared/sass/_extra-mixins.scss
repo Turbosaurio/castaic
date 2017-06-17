@@ -609,3 +609,23 @@ $bg: $pics + 'bg/';
 }
 
 
+@mixin inside-box($line: red, $dist: 10px, $place: 'before'){
+	position: relative;
+	&:#{$place}{
+		content: "";
+		display: block;
+		position: absolute;
+		height: calc(100% - #{$dist * 2});
+		width: calc(100% - #{$dist * 2});
+		top: $dist;
+		left: $dist;
+		border: 1px solid $line;
+	}
+}
+@mixin link-box($height: 100px, $width: 100px){
+	@include flex-all(column,center,center);
+	box-sizing: border-box;
+	height: $height;
+	width: $width;
+	text-align: center;
+}

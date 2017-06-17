@@ -166,47 +166,41 @@ body{
 
 
 #shuffle{
-	// position: absolute;
-	// top: 0;
-	// left: 0;
 	width: 100%;
 	img{
 		width: 100%;
 	}
 }
-@mixin inside-box($line: red, $dist: 10px, $place: 'before'){
-	position: relative;
-	&:#{$place}{
-		content: "";
-		display: block;
-		position: absolute;
-		height: calc(100% - ($dist * 2));
-		width: calc(100% - ($dist * 2));
-		height: $dist;
-		width: $dist;
-		border: 1px solid $line;
+
+.section-title{
+	width: 100%;
+	color: inherit;
+	margin: 0;
+	font:{
+		size: 2rem;
+		family: "Times", serif;
+	}
+	text:{
+		align: center;
 	}
 }
-@mixin link-box($height: 100px, $width: 100px){
-	@include flex-all(column,center,center);
-	box-sizing: border-box;
-	height: $height;
-	width: $width;
-	text-align: center;
-}
+
 #quicklinks_container{
 	$this-height: 108px;
-
-	$item-width: 18%;
-
-
 	@include flex-all(row,space-between,center);
 	position: relative;
 	margin-top: - $this-height - 15px;
 	height: $this-height;
 	.ql-item{
+		$item-width: 18%;
 		@include link-box($this-height, $item-width);
-		@include inside-box($jack-white, 8px);
+		@include inside-box($jack-white, 8px, before);
+		@include hover{
+			background-color: red;
+			&:before{
+				border: 1px solid black;
+			}
+		}
 		span { width: 70% }
 		color: white;
 		background:{
@@ -216,7 +210,44 @@ body{
 	}
 }
 
+#events_section{
+	margin-bottom: 500px;
+	padding: 50px 0;
+	background:{
+		color: $red-fox;
+		image: url('');
+		position: center center;
+		size: cover;
+	}
+	.item{
+		$border: 1px solid $jack-white;
+		width: 300px;
+		border: $border;
+		border-radius: 15px;
+		margin: 0 50px;
+		table{
+			width: 100%;
+			border-collapse: collapse;
+			.td-name{
+				text-align: center;
+				border-bottom: $border;
+			}
+			.td-date{
+				width: 20%;
+				border-right: $border;
+			}
+			.td-desc{
+				width: 40%;
+				border-bottom: $border;
+			}
+			tr:last-child .td-desc{ border-bottom: none }
+			.item-date{
+				@include flex-all(column,center,center);
+			}
+		}
+	}
+}
 
-
-
-
+#events_slick{
+	@include slick-slider(20px);
+}
