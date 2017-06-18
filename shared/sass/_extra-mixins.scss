@@ -152,10 +152,10 @@ $bg: $pics + 'bg/';
 	// 	@include width-constrain($vp-mid);
 	// 	@include flex-all(row,space-around,flex-start);
 	// }
-	// @include respond-to-min-max($vp-large,$vp-max){
-	// 	@include width-constrain($vp-large);
-	// 	@include flex-all(row,space-around,flex-start);
-	// }	
+	@include respond-to-min-max($vp-large,$vp-max){
+		@include width-constrain($vp-large);
+		@include flex-all(row,space-around,flex-start);
+	}	
 	@include respond-to($vp-max){
 		@include width-constrain($vp-max);
 		@include flex-all(row,space-around,flex-start);
@@ -615,11 +615,12 @@ $bg: $pics + 'bg/';
 		content: "";
 		display: block;
 		position: absolute;
-		height: calc(100% - #{$dist * 2});
-		width: calc(100% - #{$dist * 2});
+		height: calc(100% - #{$dist * 2 + 1px});
+		width: calc(100% - #{$dist * 2 + 1px});
 		top: $dist;
 		left: $dist;
 		border: 1px solid $line;
+		@content;
 	}
 }
 @mixin link-box($height: 100px, $width: 100px){

@@ -23,8 +23,13 @@ body{
 	width: 100%;
 	max-width: 100%;
 }
+.section-container{
+	padding: 50px 0;
+}
 .column-container{
-	@include columns;
+	@include columns{
+		@include flex(1);
+	}
 }
 .max-container{
 	@include responsive-container;
@@ -32,7 +37,40 @@ body{
 .content-container{
 	@include responsive-from-large;
 }
+.colum-title{
+}
 
+.read-more-link{
+	@include hover-underline;
+	font:{
+		family: serif;
+		size: 1rem;
+		weight: 300;
+	}
+	text:{
+		transform: uppercase;
+		decoration: none;
+	}
+	color: green;
+}
+.read-all-link{
+	@include hover-bg($jack-black,$jack-white);
+	$b-r: 15px;
+	display: inline-block;
+	padding: 10px;
+	border-radius: $b-r $b-r 0 0;
+	background-color: purple;
+	font:{
+		family: serif;
+		size: 1rem;
+		weight: 300;
+	}
+	text:{
+		transform: uppercase;
+		decoration: none;
+	}
+	color: $jack-white;
+}
 
 
 
@@ -74,19 +112,19 @@ body{
 	// 	$sub-nav-class: "sub-nav",
 	// 	$flyout-class: "flyout-group",
 	// 	$indent-last: true) {
-
 	@include accessible-menu-single-column(
-		$hamburger-color: $betty-blue,
+		$hamburger-color: $jack-white,
 		$spacing: space-between,
 		$convert-at-width: $vp-max,
 		$width: $vp-max
 	);
 	width: 100%;
+
 }
 
 #topnav_mobile_toggle {
-	top: 40px;
-	left: 20px;
+	top: 95px;
+	right: 20px;
 }
 
 #topnav {
@@ -184,7 +222,7 @@ body{
 		align: center;
 	}
 }
-
+#quicklinks_section{ padding: 0 }
 #quicklinks_container{
 	$this-height: 108px;
 	@include flex-all(row,space-between,center);
@@ -209,10 +247,11 @@ body{
 
 	}
 }
+#spotlight_section{
+	background-color: $jack-white;
+}
 
 #events_section{
-	margin-bottom: 500px;
-	padding: 50px 0;
 	background:{
 		color: $red-fox;
 		image: url('');
@@ -251,3 +290,95 @@ body{
 #events_slick{
 	@include slick-slider(20px);
 }
+
+#news_social_section{
+	background-color: $jack-white;
+}
+
+@mixin image-holder($width: 100px, $height: null, $text: null){
+	@include bg-cover;
+	display: block;
+	width: $width;
+	@if $height == null {
+		height: $width;
+	} @else {
+		height: $height;
+	}
+	@if $text == null {
+		color: transparent;
+	} @else {
+		@include flex-all(column,center,center);
+		color: $text;
+	}
+}
+
+
+
+#news_column,
+#social_column{ .column{ 
+	//@include flex(1) 
+	}
+}
+	
+#news_column{
+	.items-list{
+		.item{
+				@include flex-all(row, flex-start, center);
+		}
+		.image-holder{
+			@include image-holder(110px, 110px);
+			@include inside-box($jack-white, 10px, after){
+				border-radius: 50%;
+			}
+			margin-right: 20px;
+			border-radius: 50%;
+			background-color: red;
+		}
+	}
+}
+#social_column{
+	.tablist{
+		@include flexbox;
+		@include stripped-list;
+		padding: 0;
+
+	}
+	.tab-label{
+			width: 50%;
+			text-align: center;
+			color: $jack-white;
+			padding: 15px 0;
+		}
+		#tab_label1{
+		background-color: blue;
+		}
+		#tab_label2{
+		background-color: red;
+	}
+}
+
+
+#graphics_section{
+	@include bg-cover;
+	background-color: black;
+	.item{
+		@include flex-all(column,center,center);
+		color: $jack-white;
+		.graph-svg{
+			width: 20px;
+			height: 20px;
+			background-color: $jack-white;
+			fill: $jack-white;
+		}
+	}
+}
+#graphics_slick{
+	@include slick-slider(40px);
+}
+
+//TABS DEFAULTS
+.tab-label {
+	&:hover { cursor: pointer; }
+	svg { pointer-events: none; }
+}
+.panel {	&.hidden { @include hidden; } }

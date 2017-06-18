@@ -3,15 +3,9 @@
 <head>
 	<title>Castain local</title>
 	<link rel="stylesheet" type="text/css" href="shared/main.css">
-	<script src="jq.js"></script>
-	<script src="shared/slick.js"></script>
-	<script>
-		$(document).ready(function(){
-			$('#events_slick').slick({
-				slidesToShow: 3
-			});
-		});
-	</script>
+	<script src="js/jq.js"></script>
+	<script src="js/slick.js"></script>
+	<script src="js/tabs.js"></script>
 </head>
 <body>
 
@@ -72,7 +66,7 @@
 	</div>
 
 	<!-- QUICKLINKS -->
-	<div class="section-container">
+	<div class="section-container" id="quicklinks_section">
 		<nav class="content-container" id="quicklinks_container">
 			<a class="ql-item" href=""><span>Castaic Elementary School</span></a>
 			<a class="ql-item" href=""><span>Castaic Middle School</span></a>
@@ -82,129 +76,273 @@
 		</nav>
 	</div>
 
-<div class="section-container" id="events_section">
-	<section class="content-container" id="events_container">
-		<h2 class="section-title">Title of section</h2>
-		<div class="items-list" id="events_slick">
+	<!-- SPOTLIGHT -->
+	<div class="section-container" id="spotlight_section">
+		<h2 class="section-title">Spotlight Message</h2>
+		<section class="column-container" id="spotlight_container">
+			<div class="column" id="spotlight_column">
+				<h3>Spotlight title message</h3>
+				<div>Pellentesque eget erat tellus. Nunc odio odio, placerat sit amet iaculis in, varius quis nisl. Nam at pretium nulla. In faucibus ex quis odio dictum, a rhoncus ex convallis. Duis condimentum, velit et dapibus vulputate, lacus purus ultrices tellus, et molestie magna quam nec justo. Praesent porttitor sem tellus, eget suscipit sem venenatis a.</div>
+			</div>
+			<div class="column" id="video_column">
+				<video></video>
+			</div>
+		</section>
+	</div>
 
-			<article class="item">
-				<table>
-					<tr class="td-name">
-						<td colspan="2">Independence</td>
-					</tr>
-					<tr>
-						<td rowspan="7" class="td-date">
-							<div class="item-date">
-								<span>Jul</span>
-								<span>04</span>
-							</div>
-						</td>
-						<td class="td-desc">Baby</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-				</table>
-			</article>
-			<article class="item">
-				<table>
-					<tr class="td-name">
-						<td colspan="2">Independence</td>
-					</tr>
-					<tr>
-						<td rowspan="7" class="td-date">
-							<div class="item-date">
-								<span>Jul</span>
-								<span>04</span>
-							</div>
-						</td>
-						<td class="td-desc">Baby</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-				</table>
-			</article>
-			<article class="item">
-				<table>
-					<tr class="td-name">
-						<td colspan="2">Independence</td>
-					</tr>
-					<tr>
-						<td rowspan="7" class="td-date">
-							<div class="item-date">
-								<span>Jul</span>
-								<span>04</span>
-							</div>
-						</td>
-						<td class="td-desc">Baby</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-				</table>
-			</article>
-			<article class="item">
-				<table>
-					<tr class="td-name">
-						<td colspan="2">Independence</td>
-					</tr>
-					<tr>
-						<td rowspan="7" class="td-date">
-							<div class="item-date">
-								<span>Jul</span>
-								<span>04</span>
-							</div>
-						</td>
-						<td class="td-desc">Baby</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-				</table>
-			</article>
-			<article class="item">
-				<table>
-					<tr class="td-name">
-						<td colspan="2">Independence</td>
-					</tr>
-					<tr>
-						<td rowspan="7" class="td-date">
-							<div class="item-date">
-								<span>Jul</span>
-								<span>04</span>
-							</div>
-						</td>
-						<td class="td-desc">Baby</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-					<tr>
-						<td class="td-desc">Time</td>
-					</tr>
-				</table>
-			</article>
+
+
+
+	<!-- EVENTS -->
+	<div class="section-container" id="events_section">
+		<section class="content-container" id="events_container">
+			<h2 class="section-title">Title of section</h2>
+			<div class="items-list" id="events_slick">
+
+				<article class="item">
+					<table>
+						<tr class="td-name">
+							<td colspan="2">Independence</td>
+						</tr>
+						<tr>
+							<td rowspan="7" class="td-date">
+								<div class="item-date">
+									<span>Jul</span>
+									<span>04</span>
+								</div>
+							</td>
+							<td class="td-desc">Baby</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+					</table>
+				</article>
+				<article class="item">
+					<table>
+						<tr class="td-name">
+							<td colspan="2">Independence</td>
+						</tr>
+						<tr>
+							<td rowspan="7" class="td-date">
+								<div class="item-date">
+									<span>Jul</span>
+									<span>04</span>
+								</div>
+							</td>
+							<td class="td-desc">Baby</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+					</table>
+				</article>
+				<article class="item">
+					<table>
+						<tr class="td-name">
+							<td colspan="2">Independence</td>
+						</tr>
+						<tr>
+							<td rowspan="7" class="td-date">
+								<div class="item-date">
+									<span>Jul</span>
+									<span>04</span>
+								</div>
+							</td>
+							<td class="td-desc">Baby</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+					</table>
+				</article>
+				<article class="item">
+					<table>
+						<tr class="td-name">
+							<td colspan="2">Independence</td>
+						</tr>
+						<tr>
+							<td rowspan="7" class="td-date">
+								<div class="item-date">
+									<span>Jul</span>
+									<span>04</span>
+								</div>
+							</td>
+							<td class="td-desc">Baby</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+					</table>
+				</article>
+				<article class="item">
+					<table>
+						<tr class="td-name">
+							<td colspan="2">Independence</td>
+						</tr>
+						<tr>
+							<td rowspan="7" class="td-date">
+								<div class="item-date">
+									<span>Jul</span>
+									<span>04</span>
+								</div>
+							</td>
+							<td class="td-desc">Baby</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+						<tr>
+							<td class="td-desc">Time</td>
+						</tr>
+					</table>
+				</article>
+			</div>
+		</section>
+	</div>
+
+
+
+	<!-- NEWS SOCIAL -->
+	<div class="section-container" id="news_social_section">
+		<h2 class="section-title">Latest News</h2>
+		<div class="column-container" id="news_social_container">
+			<section class="column" id="news_column">
+				<div class="items-list">
+
+					<artcle class="item">
+						<a class="image-holder" href="#">link 1</a>
+						<div class="item-description">
+							<div class="item-name">News item title</div>
+							<div class="item-text">NEws item text</div>
+							<a href="#" class="read-more-link">Read more</a>
+						</div>
+					</artcle>
+
+					<artcle class="item">
+						<a class="image-holder" href="#">link 1</a>
+						<div class="item-description">
+							<div class="item-name">News item title</div>
+							<div class="item-text">NEws item text</div>
+							<a href="#" class="read-more-link">Read more</a>
+						</div>
+					</artcle>
+
+					<artcle class="item">
+						<a class="image-holder" href="#">link 1</a>
+						<div class="item-description">
+							<div class="item-name">News item title</div>
+							<div class="item-text">NEws item text</div>
+							<a href="#" class="read-more-link">Read more</a>
+						</div>
+					</artcle>
+					<a href="#" class="read-all-link">Read All News</a>
+				</div>
+			</section>
+			<section class="column" id="social_column">
+				<div id="tabpanel1" class="tabpanel">
+				    <ul class="tablist" role="tablist">
+							<li id="tab_label1" class="tab-label selected" aria-controls="tab_container1" aria-selected="true" role="tab" tabindex="0">Facebook</li>
+							<li id="tab_label2" class="tab-label" aria-controls="tab_container2" role="tab" aria-selected="false" tabindex="-1">Twitter</li>
+				    </ul>
+				    <section class="panel" id="tab_container1" aria-labelledby="tab_label1" role="tabpanel">
+				        Here's the stuff in the first tab!
+				    </section>
+				 
+				    <section class="panel" id="tab_container2" aria-labelledby="tab_label2" role="tabpanel">
+				        Here's the stuff in the second tab!
+				    </section>
+				</div>
+			</section>
 		</div>
-	</section>
-</div>
+	</div>
 
+
+	<!-- INFOGRAPHICS -->
+	<div class="section-container" id="graphics_section">
+		<section class="content-container" id="graphics_container">
+			<h2 class="header-title">Site Links</h2>
+			<div class="items-list" id="graphics_slick">
+				
+				<div class="item">
+					<div class="graph-svg"></div>
+					<span>Board Agenda</span>
+				</div>
+
+				<div class="item">
+					<div class="graph-svg"></div>
+					<span>Board Agenda</span>
+				</div>
+
+				<div class="item">
+					<div class="graph-svg"></div>
+					<span>Board Agenda</span>
+				</div>
+
+				<div class="item">
+					<div class="graph-svg"></div>
+					<span>Board Agenda</span>
+				</div>
+
+				<div class="item">
+					<div class="graph-svg"></div>
+					<span>Board Agenda</span>
+				</div>
+
+				<div class="item">
+					<div class="graph-svg"></div>
+					<span>Board Agenda</span>
+				</div>
+
+				<div class="item">
+					<div class="graph-svg"></div>
+					<span>Board Agenda</span>
+				</div>
+
+			</div>
+		</section>
+	</div>
 
 
 </main>
 
 
+<script>
+	$(document).ready(function(){
+		$('#events_slick').slick({
+			slidesToShow: 3,
+			responsive: [
+				{
+					breakpoint: 800,
+					settings:{
+						slidesToShow: 1
+					}
+				}
+			]
+		});
+		$('#graphics_slick').slick({
+			slidesToShow: 4,
+			responsive:[{
+				breakpoint: 500,
+				settings:{
+					slidesToShow: 1
+				}
+			}]
+		});
+		var panel1 = new tabpanel("tabpanel1", false);
+	});
+</script>
 </body>
 </html>
