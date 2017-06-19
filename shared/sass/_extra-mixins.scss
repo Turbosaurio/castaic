@@ -110,61 +110,78 @@ $bg: $pics + 'bg/';
 
 
 
-//containers that adjust to display size, usually class .content-container has this
-@mixin responsive-container($min: 90%, $only-max: null){
-	@include width-constrain($min);
-	@if $only-max == null {
+
+
+@mixin get-mid{
 		@include respond-to-min-max($vp-mid, $vp-large){
 			@include width-constrain($vp-mid);
+			@content;
 		}
-		@include respond-to-min-max($vp-large, $vp-max){
-			@include width-constrain($vp-large);
-		}
-	} @else {
-		@include respond-to($vp-max){
-			@include width-constrain($vp-max);
-		}
-	}
 }
-
-//as before but only from large to min, max takes large size
-@mixin responsive-from-large($min: 90%){
-	@include width-constrain($min);
-	@include respond-to-min-max($vp-mid, $vp-large){
-		@include width-constrain($vp-mid);
-	}
-	@include respond-to($vp-large){
+@mixin get-large{
+	@include respond-to-min-max($vp-large, $vp-max){
 		@include width-constrain($vp-large);
+		@content;
+	}
+}
+@mixin get-max{
+	@include respond-to($vp-max){
+		@include width-constrain($vp-max);
+		@content;
 	}
 }
 
 
+//containers that adjust to display size, usually class .content-container has this
+@mixin responsive-container(
+	$min: 90%,
+	$include-mid: null,
+	$include-large: true,
+	$include-max: null
+	){
+	@include width-constrain($min);
+	@if $include-mid != null{
+			@include get-mid;
+	}
+	@if $include-large != null{
+			@include get-large;
+	}
+	@if $include-max != null{
+			@include get-max;
+	}
+}
 
 //column content based on flex, 
 //@content adds to class $column-class
 //usually applied to .column-container
-@mixin columns(
+@mixin responsive-columns(
 	$number: 2, 
-	$column-class: "column"
+	$column-class: "column",
+	$min: 90%,
+	$include-mid: null,
+	$include-large: true,
+	$include-max: null
 	){
-	@include width-constrain(100%);
-	// @include respond-to-min-max($vp-mid,$vp-large){
-	// 	@include width-constrain($vp-mid);
-	// 	@include flex-all(row,space-around,flex-start);
-	// }
-	@include respond-to-min-max($vp-large,$vp-max){
-		@include width-constrain($vp-large);
+	@include width-constrain($min);
+	@if $include-mid != null{
+			@include get-mid;
+			@include flex-all(row,space-around,flex-start);
+
+	}
+	@if $include-large != null{
+			@include get-large;
 		@include flex-all(row,space-around,flex-start);
-	}	
-	@include respond-to($vp-max){
-		@include width-constrain($vp-max);
+
+	}
+	@if $include-max != null{
+			@include get-max;
 		@include flex-all(row,space-around,flex-start);
+
 	}
 	>.#{$column-class}{
 		@content;
 	}
 }
-
 
 
 ///TEXT MIXINS
@@ -307,6 +324,21 @@ $bg: $pics + 'bg/';
 	}
 }
 
+
+@mixin eye-lashes($color: black, $height: 3px){
+	@include flex-all(row, space-between, center);
+	width: 100%;
+	//position: relative;
+	&:after,
+	&:before{
+			@include flex(1);
+			content:"";
+			height: $height;
+			background-color: $color;
+	}
+	&:before { margin-right: 25px }
+	&:after  { margin-left: 25px }
+}
 
 //////Buttons
 
@@ -630,3 +662,5 @@ $bg: $pics + 'bg/';
 	width: $width;
 	text-align: center;
 }
+
+

@@ -15,9 +15,8 @@
 
 
 body{
-	background-color: rgb(60,60,60);
-	padding: 0;
-	margin: 0;
+	font-family: $primary-font;
+	font-size: 100%;
 }
 .slick-flexed{
 	width: 100%;
@@ -27,17 +26,40 @@ body{
 	padding: 50px 0;
 }
 .column-container{
-	@include columns{
+	@include responsive-columns(
+		$include-mid: null,
+		$include-large: true,
+		$include-max: true
+	){
 		@include flex(1);
 	}
 }
 .max-container{
-	@include responsive-container;
+	@include responsive-container(
+		$include-mid: null,
+		$include-large: true,
+		$include-max: true
+);
 }
 .content-container{
-	@include responsive-from-large;
+	@include responsive-container(
+		$include-mid: null,
+		$include-large: true,
+		$include-max: true
+	);
 }
-.colum-title{
+
+.section-title{
+	@include eye-lashes;
+	color: inherit;
+	margin: 0;
+	padding-bottom: 50px;
+	font:{
+		size: 2rem;
+		family: "Times", serif;
+	}
+}
+.column-title{
 }
 
 .read-more-link{
@@ -73,8 +95,23 @@ body{
 }
 
 
+// High level structure
+// ------------------------------------------------------------
 
-#skip_to_content {	@include skip-to-content; }
+html {
+	@include sticky-footer-layout;
+}
+
+body { 
+	background: url('/common_pics/body_bg.png') top center repeat-x;
+	background-color: $jack-white;
+	color: $jack-black; 
+}
+
+body, #footer_main { min-width: $vp-small; }
+
+
+
 
 
 
@@ -98,6 +135,7 @@ body{
   border-top: 2px solid $betty-blue;
   border-bottom: 2px solid $betty-blue;
 }
+#skip_to_content {	@include skip-to-content; }
 #topnav_holder {
 	// @mixin accessible-menu-single-column(
 	// 	$hamburger-color: $jack-white,
@@ -210,18 +248,6 @@ body{
 	}
 }
 
-.section-title{
-	width: 100%;
-	color: inherit;
-	margin: 0;
-	font:{
-		size: 2rem;
-		family: "Times", serif;
-	}
-	text:{
-		align: center;
-	}
-}
 #quicklinks_section{ padding: 0 }
 #quicklinks_container{
 	$this-height: 108px;
@@ -264,6 +290,7 @@ body{
 		border: $border;
 		border-radius: 15px;
 		margin: 0 50px;
+		color: $jack-white;
 		table{
 			width: 100%;
 			border-collapse: collapse;
@@ -315,15 +342,24 @@ body{
 
 
 #news_column,
-#social_column{ .column{ 
+#social_column{ 
+
+	.column{ 
 	//@include flex(1) 
 	}
 }
 	
 #news_column{
+	@include flex-all(column,flex-start,flex-start);
+	height: 800px;
 	.items-list{
 		.item{
 				@include flex-all(row, flex-start, center);
+				&:not(:last-child){
+					@include gradient-line-bottom;
+					padding-bottom: 25px;
+					margin-bottom: 25px;
+				}
 		}
 		.image-holder{
 			@include image-holder(110px, 110px);
@@ -334,6 +370,10 @@ body{
 			border-radius: 50%;
 			background-color: red;
 		}
+	}
+	.read-all-link{
+		align-self: center;
+		margin-top: auto;
 	}
 }
 #social_column{
@@ -376,9 +416,50 @@ body{
 	@include slick-slider(40px);
 }
 
+#ad_map_section{
+	@include flexbox;
+	padding: 0;
+	width: 100%;
+	height: $vp-max / 2;
+}
+#ad_holder, #google_map{
+		width: 50%;
+}
+#ad_holder{
+	position: relative;
+}
+#ad{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: $vp-max / 2;
+	height: $vp-max / 2;
+	background-color: $red-fox;
+	color: $al-green;
+}
+#google_map{
+	iframe{
+			width: 100%;
+			height: 100%;
+	}
+}
+
+
 //TABS DEFAULTS
 .tab-label {
 	&:hover { cursor: pointer; }
 	svg { pointer-events: none; }
 }
 .panel {	&.hidden { @include hidden; } }
+
+
+//EDLIO
+#edlio_login {
+	@include edlio-login($jack-white, $jack-black);
+}
+#edlio_logo {
+	@include svg-icon(140px, 20px, 0, rgba($jack-black, .3));
+}
+#mobile_nav {
+	@include mobile-nav($betty-blue, $jack-white, $yellow-ono);
+}

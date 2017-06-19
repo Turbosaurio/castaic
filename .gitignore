@@ -41,4 +41,5 @@ Thumbs.db
 # SASS shite #
 ######################
 shared/.sass-cache
+shared/main.css.map
 *.map

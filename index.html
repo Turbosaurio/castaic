@@ -78,7 +78,9 @@
 
 	<!-- SPOTLIGHT -->
 	<div class="section-container" id="spotlight_section">
-		<h2 class="section-title">Spotlight Message</h2>
+		<div class="content-container">
+			<h2 class="section-title">Spotlight Message</h2>
+		</div>
 		<section class="column-container" id="spotlight_container">
 			<div class="column" id="spotlight_column">
 				<h3>Spotlight title message</h3>
@@ -193,20 +195,16 @@
 							<td colspan="2">Independence</td>
 						</tr>
 						<tr>
-							<td rowspan="7" class="td-date">
+							<td rowspan="0" class="td-date">
 								<div class="item-date">
 									<span>Jul</span>
 									<span>04</span>
 								</div>
 							</td>
-							<td class="td-desc">Baby</td>
 						</tr>
-						<tr>
-							<td class="td-desc">Time</td>
-						</tr>
-						<tr>
-							<td class="td-desc">Time</td>
-						</tr>
+						<tr><td class="td-desc">Baby</td></tr>
+						<tr><td class="td-desc">Time</td></tr>
+						<tr><td class="td-desc">Time</td></tr>
 					</table>
 				</article>
 			</div>
@@ -217,39 +215,41 @@
 
 	<!-- NEWS SOCIAL -->
 	<div class="section-container" id="news_social_section">
-		<h2 class="section-title">Latest News</h2>
+		<div class="content-container">
+			<h2 class="section-title">Latest News</h2>
+		</div>
 		<div class="column-container" id="news_social_container">
 			<section class="column" id="news_column">
 				<div class="items-list">
 
-					<artcle class="item">
+					<article class="item">
 						<a class="image-holder" href="#">link 1</a>
 						<div class="item-description">
 							<div class="item-name">News item title</div>
 							<div class="item-text">NEws item text</div>
 							<a href="#" class="read-more-link">Read more</a>
 						</div>
-					</artcle>
+					</article>
 
-					<artcle class="item">
+					<article class="item">
 						<a class="image-holder" href="#">link 1</a>
 						<div class="item-description">
 							<div class="item-name">News item title</div>
 							<div class="item-text">NEws item text</div>
 							<a href="#" class="read-more-link">Read more</a>
 						</div>
-					</artcle>
+					</article>
 
-					<artcle class="item">
+					<article class="item">
 						<a class="image-holder" href="#">link 1</a>
 						<div class="item-description">
 							<div class="item-name">News item title</div>
 							<div class="item-text">NEws item text</div>
 							<a href="#" class="read-more-link">Read more</a>
 						</div>
-					</artcle>
-					<a href="#" class="read-all-link">Read All News</a>
+					</article>
 				</div>
+				<a href="#" class="read-all-link">Read All News</a>
 			</section>
 			<section class="column" id="social_column">
 				<div id="tabpanel1" class="tabpanel">
@@ -257,13 +257,16 @@
 							<li id="tab_label1" class="tab-label selected" aria-controls="tab_container1" aria-selected="true" role="tab" tabindex="0">Facebook</li>
 							<li id="tab_label2" class="tab-label" aria-controls="tab_container2" role="tab" aria-selected="false" tabindex="-1">Twitter</li>
 				    </ul>
+
+
 				    <section class="panel" id="tab_container1" aria-labelledby="tab_label1" role="tabpanel">
-				        Here's the stuff in the first tab!
 				    </section>
-				 
+
 				    <section class="panel" id="tab_container2" aria-labelledby="tab_label2" role="tabpanel">
-				        Here's the stuff in the second tab!
+							<a class="twitter-timeline" data-chrome="noheader nofooter transparent" data-tweet-limit="5" href="https://twitter.com/edlio">Tweets by edlio</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 				    </section>
+
+
 				</div>
 			</section>
 		</div>
@@ -315,8 +318,36 @@
 		</section>
 	</div>
 
-
+	<div class="section-container" id="ad_map_section">
+		<div class="half-column" id="ad_holder">
+			<a href="#" id="ad">AD</a>
+		</div>
+		<div id="google_map">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.657043626845!2d-99.25999618496539!3d19.427218645886523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d206c8d1612b55%3A0xaf4d185878025af7!2sEdlio+M%C3%A9xico!5e0!3m2!1sen!2smx!4v1497831323086" frameborder="0" style="border:0" allowfullscreen></iframe>
+		</div>
+	</div>
 </main>
+
+
+
+<footer id="footer_main" class="section-container">
+	<div class="column-container">
+	<div class="column" id="footer_logo_column">
+		<img src="head-logo" id="footer_logo">
+	</div>
+	<div class="column" id="footer_adress_column">
+		<span>Phone: 661-257-4500</span>
+		<span>Fax: 661-257-4500</span>
+		<span>Adress: 28131 Livingston Av.</span>
+		<span>mail@mail.com</span>
+	</div>
+	<div class="column" id="footer_schools_column">
+		<div class="footer-img">A</div>
+		<div class="footer-img">B</div>
+		<div class="footer-img">C</div>
+		<div class="footer-img">D</div>
+	</div>
+</footer>
 
 
 <script>
